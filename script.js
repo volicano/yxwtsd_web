@@ -124,29 +124,49 @@ if (contactForm) {
         e.preventDefault();
         
         // 获取表单数据
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData);
+        const formData = new FormData(contactForm);
+        const name = formData.get('name') || '未填写';
+        const phone = formData.get('phone') || '未填写';
+        const email = formData.get('email') || '未填写';
+        const service = formData.get('service') || '未选择';
+        const message = formData.get('message') || '未填写';
         
-        // 简单的表单验证
-        if (!data.name || !data.phone || !data.service) {
-            alert('请填写必填项：姓名、联系电话和服务类型');
-            return;
-        }
+        // 构建消息内容
+        const title = '🌿 新的绿植租赁咨询';
+        const content = `姓名：${name}
+电话：${phone}
+邮箱：${email}
+服务类型：${service}
+详细需求：${message}
+时间：${new Date().toLocaleString('zh-CN')}`;
         
-        // 模拟表单提交
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
+        // Server酱推送
+        const sendKey = 'SCT286062TMMgWhtCxAFqjPdoedYEtWKUq';
+        const url = `https://sctapi.ftqq.com/${sendKey}.send`;
         
-        submitBtn.textContent = '提交中...';
-        submitBtn.disabled = true;
-        
-        // 模拟API调用延迟
-        setTimeout(() => {
-            alert('感谢您的咨询！我们会尽快与您联系。');
-            this.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }, 2000);
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                title: title,
+                desp: content
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.code === 0) {
+                alert('提交成功！我们会尽快与您联系。');
+                contactForm.reset();
+            } else {
+                alert('提交失败，请稍后重试或直接拨打电话联系我们。');
+            }
+        })
+        .catch(error => {
+            console.error('推送失败:', error);
+            alert('提交失败，请稍后重试或直接拨打电话联系我们。');
+        });
     });
 }
 
