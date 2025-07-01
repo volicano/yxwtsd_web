@@ -133,11 +133,11 @@ if (contactForm) {
         
         // 构建消息内容
         const title = '🌿 新的绿植租赁咨询';
-        const content = `姓名：${name}
-电话：${phone}
-邮箱：${email}
-服务类型：${service}
-详细需求：${message}
+        const content = `姓名：${name}\n
+电话：${phone}\n
+邮箱：${email}\n        
+服务类型：${service}\n
+详细需求：${message}\n
 时间：${new Date().toLocaleString('zh-CN')}`;
         
         // Server酱推送

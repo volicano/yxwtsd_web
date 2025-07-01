@@ -833,4 +833,26 @@ html {
         height: 28vw;
         min-height: 120px;
     }
+}
+
+/* 美化主按钮 */
+.btn-primary {
+    background: linear-gradient(90deg, #43a047 0%, #66bb6a 100%);
+    color: #fff;
+    border: none;
+    border-radius: 28px;
+    padding: 12px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(67,160,71,0.10);
+    transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+.btn-primary:hover, .btn-primary:focus {
+    background: linear-gradient(90deg, #388e3c 0%, #43a047 100%);
+    box-shadow: 0 8px 24px rgba(67,160,71,0.18);
+    transform: translateY(-2px) scale(1.03);
+    color: #fff;
+    outline: none;
 } 
